@@ -4,11 +4,11 @@
 @inject NavigationManager NavigationManager
 
 <h3>Time Keeping Transactions List</h3>
-<hr/>
-
-<NavLink class="nav-link" href="AddTransaction">
-    <span class="oi oi-plus" aria-hidden="true">Add New</span>
-</NavLink>
+<hr />
+<div>
+    <a href="AddTransaction" class="btn btn-success" role="button">+ Add New Transaction</a>
+</div>
+<hr />
 
 @if (objTransaction is null)
 {
@@ -35,12 +35,12 @@ else
                 <td>@trans.TransactionDateTime</td>
                 <td>@trans.EmployeeId</td>
                 <td>@trans.Employee.LastName, @trans.Employee.FirstName</td>
-                <td class="d-inline-block">
-                    <a class="nav-link" href="EditTransaction/@trans.TimeKeepingTransactionTypeId">
-                        <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                <td>
+                    <a href="EditTransaction/@trans.TimeKeepingTransactionTypeId" class="btn btn-outline-primary" role="button">
+                        Edit
                     </a>
-                    <a class="nav-link" href="DeleteTransaction/@trans.TimeKeepingTransactionTypeId">
-                        <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                    <a href="DeleteTransaction/@trans.TimeKeepingTransactionTypeId" class="btn btn-outline-danger" role="button">
+                        Delete
                     </a>
                 </td>
             </tr>

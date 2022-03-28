@@ -3,11 +3,11 @@
 @inject IEmployeeService empService
 
 <h3>List of Employees</h3>
-<hr/>
-
-<NavLink class="nav-link" href="AddEmployee">
-    <span class="oi oi-plus" aria-hidden="true">Add New Employee</span>
-</NavLink>
+<hr />
+<div>
+    <a href="AddEmployee" class="btn btn-success" role="button">+ Add New Employee</a>
+</div>
+<hr />
 
 
 @if (empObj is null)
@@ -28,20 +28,20 @@ else
         <tbody>
             @foreach (var emp in empObj)
             {
-                <tr>
-                    <td>@emp.EmployeeId</td>
-                    <td>@emp.LastName, @emp.FirstName</td>
-                    <td>@emp.Gender</td>
-                    <td>@emp.DateHired</td>
-                    <td>
-                        <a class="nav-link" href="EditEmployee/@emp.EmployeeId">
-                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
-                        </a>
-                        <a class="nav-link" href="DeleteEmployee/@emp.EmployeeId">
-                            <span class="oi oi-trash" aria-hidden="true">Delete</span>
-                        </a>
-                    </td>
-                </tr>
+            <tr>
+                <td>@emp.EmployeeId</td>
+                <td>@emp.LastName, @emp.FirstName</td>
+                <td>@emp.Gender</td>
+                <td>@emp.DateHired</td>
+                <td>
+                    <a href="EditEmployee/@emp.EmployeeId" class="btn btn-outline-primary" role="button">
+                        Edit
+                    </a>
+                    <a href="DeleteEmployee/@emp.EmployeeId" class="btn btn-outline-danger" role="button">
+                        Delete
+                    </a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

@@ -50,34 +50,34 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="button" class="btn btn-primary" @onclick="@CreateTransaction" value="Submit" />
-                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+                <input type="submit" class="btn btn-success" value="Submit" />
+                <input type="button" class="btn btn-outline-danger" @onclick="@Cancel" value="Cancel" />
             </div>
         </div>
     </div>
 </EditForm>
 
-    @code {
+@code {
 
-        TimeKeepingTransaction transObj = new TimeKeepingTransaction();
+    TimeKeepingTransaction transObj = new TimeKeepingTransaction();
 
-        List<Employee> empObj;
-        List<TransactionType> typeObj;
+    List<Employee> empObj;
+    List<TransactionType> typeObj;
 
-        protected override async Task OnInitializedAsync()
-        {
-            empObj = await Task.Run(() => empService.GetAllEmployeesAsync());
-            typeObj = await Task.Run(() => typeService.GetAllTransactionTypesAsync());
-            transObj.TransactionDateTime = DateTime.Now;
-        }
-
-        protected async void CreateTransaction()
-        {
-            await transactionService.InsertTransactionAsync(transObj);
-            NavigationManager.NavigateTo("TimekeepingTransactions");
-        }
-        void Cancel()
-        {
-            NavigationManager.NavigateTo("TimekeepingTransactions");
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        empObj = await Task.Run(() => empService.GetAllEmployeesAsync());
+        typeObj = await Task.Run(() => typeService.GetAllTransactionTypesAsync());
+        transObj.TransactionDateTime = DateTime.Now;
     }
+
+    protected async void CreateTransaction()
+    {
+        await transactionService.InsertTransactionAsync(transObj);
+        NavigationManager.NavigateTo("TimekeepingTransactions");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("TimekeepingTransactions");
+    }
+}
