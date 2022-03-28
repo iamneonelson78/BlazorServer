@@ -8,12 +8,13 @@
     <span class="oi oi-plus" aria-hidden="true">Add New Employee</span>
 </NavLink>
 
+
 @if (empObj is null)
 {
     <p><em>Loading.....</em></p> }
 else
 {
-    <table class="table table-responsive table-striped table-hover">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -45,6 +46,7 @@ else
             }
         </tbody>
     </table>
+
 }
 
 @code

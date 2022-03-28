@@ -33,6 +33,7 @@ namespace BlazorServer
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<ITimekeepingService,TimekeepingService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<ITransactionTypeService, TransactionTypeService>();
 
             services.AddDbContext<BlazordemoContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }

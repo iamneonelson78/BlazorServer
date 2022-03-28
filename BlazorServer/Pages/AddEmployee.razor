@@ -1,6 +1,6 @@
 ﻿@page "/AddEmployee"
 @using BlazorServer.Data
-@inject EmployeeService employeeService
+@inject IEmployeeService employeeService
 @inject NavigationManager NavigationManager
 
 <h2>Add Employee</h2>
@@ -31,12 +31,11 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
                 <input type="button" class="btn btn-primary" @onclick="@CreateEmployee" value="Save" />
-                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+                <input type="button" class="btn btn-secondary" @onclick="@Cancel" value="Cancel" />
             </div>
         </div>
     </div>

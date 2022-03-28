@@ -19,7 +19,10 @@ namespace BlazorServer.Service
 
         public async Task<List<TimeKeepingTransaction>> GetAllTransactions()
         {
-            return await _context.TimeKeepingTransactions.ToListAsync();
+            return await _context.TimeKeepingTransactions
+                .Include(x => x.Employee)
+                .Include(x => x.TransactionType)
+                .ToListAsync();
         }
         public async Task<bool> InsertTransactionAsync(TimeKeepingTransaction transaction)
         {
