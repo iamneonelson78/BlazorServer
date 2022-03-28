@@ -5,13 +5,24 @@
 @inject NavigationManager NavigationManager
 
 <h3>Create New Timekeeping Transaction</h3>
+<hr />
 
-<form>
+<EditForm Model="@transObj" OnValidSubmit="@CreateTransaction">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
+                <label for="TransactionDateTime" class="control-label">Transaction Date Time</label>
+                <input type="date" form="TransactionDateTime" class="form-control" @bind="@transObj.TransactionDateTime" />
+            </div>
+            <div class="form-group">
+                <label for="TransactionDateTime" class="control-label">Current Date Time</label>
+                <input type="time" form="TransactionDateTime" class="form-control" @bind="@transObj.TransactionDateTime" />
+            </div>
+            <div class="form-group">
                 <label for="Gender" class="control-label"></label>
-                <select class="form-control" @bind="@objTransaction.EmployeeId">
+                <select class="form-control" @bind="@transObj.EmployeeId">
                     <option value="">-- Select Employee --</option>
                     @if ((empObj != null))
                         @foreach (var emp in empObj)
@@ -23,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label for="Gender" class="control-label"></label>
-                <select class="form-control" @bind="@objTransaction.TransactionTypeId">
+                <select class="form-control" @bind="@transObj.TransactionTypeId">
                     <option value="">-- Select Transaction --</option>
                     @if ((typeObj != null))
                         @foreach (var typeO in typeObj)
@@ -33,17 +44,6 @@
                     }
                 </select>
             </div>
-            <div class="form-group">
-                <label for="TransactionDateTime" class="control-label">Transaction Date Time</label>
-                <input type="date" form="TransactionDateTime" class="form-control" @bind="@objTransaction.TransactionDateTime" />
-            </div>
-            <div class="form-group">
-                <label for="TransactionDateTime" class="control-label">Current Date Time</label>
-                <input type="time" form="TransactionDateTime" class="form-control" @bind="@objTransaction.TransactionDateTime" />
-            </div>
-
-
-
         </div>
     </div>
 
@@ -55,29 +55,29 @@
             </div>
         </div>
     </div>
-</form>
+</EditForm>
 
-@code {
+    @code {
 
-    TimeKeepingTransaction objTransaction = new TimeKeepingTransaction();
+        TimeKeepingTransaction transObj = new TimeKeepingTransaction();
 
-    List<Employee> empObj;
-    List<TransactionType> typeObj;
+        List<Employee> empObj;
+        List<TransactionType> typeObj;
 
-    protected override async Task OnInitializedAsync()
-    {
-        empObj = await Task.Run(() => empService.GetAllEmployeesAsync());
-        typeObj = await Task.Run(() => typeService.GetAllTransactionTypesAsync());
-        objTransaction.TransactionDateTime = DateTime.Now;
+        protected override async Task OnInitializedAsync()
+        {
+            empObj = await Task.Run(() => empService.GetAllEmployeesAsync());
+            typeObj = await Task.Run(() => typeService.GetAllTransactionTypesAsync());
+            transObj.TransactionDateTime = DateTime.Now;
+        }
+
+        protected async void CreateTransaction()
+        {
+            await transactionService.InsertTransactionAsync(transObj);
+            NavigationManager.NavigateTo("TimekeepingTransactions");
+        }
+        void Cancel()
+        {
+            NavigationManager.NavigateTo("TimekeepingTransactions");
+        }
     }
-
-    protected async void CreateTransaction()
-    {
-        await transactionService.InsertTransactionAsync(objTransaction);
-        NavigationManager.NavigateTo("TimekeepingTransactions");
-    }
-    void Cancel()
-    {
-        NavigationManager.NavigateTo("TimekeepingTransactions");
-    }
-}

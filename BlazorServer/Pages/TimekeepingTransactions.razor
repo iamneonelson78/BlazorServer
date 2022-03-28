@@ -3,7 +3,8 @@
 @inject ITimekeepingService transactionService
 @inject NavigationManager NavigationManager
 
-<h3>TimekeepingTransactions</h3>
+<h3>Time Keeping Transactions List</h3>
+<hr/>
 
 <NavLink class="nav-link" href="AddTransaction">
     <span class="oi oi-plus" aria-hidden="true">Add New</span>
@@ -14,37 +15,35 @@
     <p><em>Loading... !</em></p>}
 else
 {
-    <table class="table table-responsive table-striped table-hover">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Transaction Id</th>
                 <th>Transaction Type</th>
                 <th>Transaction DateTime</th>
                 <th>Employee Id</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Employee Name</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var trans in objTransaction)
             {
-                <tr>
-                    <td>@trans.TimeKeepingTransactionTypeId</td>
-                    <td>@trans.TransactionType.TransactionTypeName</td>
-                    <td>@trans.TransactionDateTime</td>
-                    <td>@trans.EmployeeId</td>
-                    <td>@trans.Employee.FirstName</td>
-                    <td>@trans.Employee.LastName</td>
-                    <td>
-                        <a class="nav-link" href="EditTransaction/@trans.TimeKeepingTransactionTypeId">
-                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
-                        </a>
-                        <a class="nav-link" href="DeleteTransaction/@trans.TimeKeepingTransactionTypeId">
-                            <span class="oi oi-trash" aria-hidden="true">Delete</span>
-                        </a>
-                    </td>
-                </tr>
+            <tr>
+                <td>@trans.TimeKeepingTransactionTypeId</td>
+                <td>@trans.TransactionType.TransactionTypeName</td>
+                <td>@trans.TransactionDateTime</td>
+                <td>@trans.EmployeeId</td>
+                <td>@trans.Employee.LastName, @trans.Employee.FirstName</td>
+                <td class="d-inline-block">
+                    <a class="nav-link" href="EditTransaction/@trans.TimeKeepingTransactionTypeId">
+                        <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                    </a>
+                    <a class="nav-link" href="DeleteTransaction/@trans.TimeKeepingTransactionTypeId">
+                        <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                    </a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

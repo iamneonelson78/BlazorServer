@@ -2,14 +2,19 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlazorServer.Models
 {
     public partial class TimeKeepingTransaction
     {
+        [Key]
         public int TimeKeepingTransactionTypeId { get; set; }
-        public int? EmployeeId { get; set; }
-        public int? TransactionTypeId { get; set; }
+        [Required]
+        public int EmployeeId { get; set; }
+        [Required]
+        public int TransactionTypeId { get; set; }
+        [Required]
         public DateTime? TransactionDateTime { get; set; }
 
         public virtual Employee Employee { get; set; }

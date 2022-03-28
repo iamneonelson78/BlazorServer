@@ -5,8 +5,11 @@
 @inject NavigationManager NavigationManager
 
 <h3>Edit Timekeeping Transaction</h3>
+<hr />
 
-<form>
+<EditForm Model="@transObj" OnValidSubmit="@UpdateTransaction">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
@@ -53,7 +56,7 @@
             </div>
         </div>
     </div>
-</form>
+</EditForm>
 
 @code {
 
@@ -63,7 +66,7 @@
     List<TransactionType> typeObj;
 
     [Parameter]
-    public string Id { get; set; }
+    public string TransactionId { get; set; }
 
 
     protected override async Task OnInitializedAsync()
@@ -71,7 +74,7 @@
         empObj = await Task.Run(() => empService.GetAllEmployeesAsync());
         typeObj = await Task.Run(() => typeService.GetAllTransactionTypesAsync());
 
-        transObj = await Task.Run(() => transService.GetTransactionByIdAsync(Convert.ToInt32(Id)));
+        transObj = await Task.Run(() => transService.GetTransactionByIdAsync(Convert.ToInt32(TransactionId)));
 
     }
     protected async void UpdateTransaction()

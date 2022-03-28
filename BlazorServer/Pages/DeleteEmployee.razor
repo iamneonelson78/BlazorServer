@@ -3,9 +3,9 @@
 @inject IEmployeeService employeeService
 @inject NavigationManager NavigationManager
 
-<h2>Delete Employee</h2>
+
+<h3>Are you sure want to delete this employee?</h3>
 <hr />
-<h3>Are you sure want to delete this?</h3>
 
 <form>
     <div class="row">
@@ -37,7 +37,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <input type="button" class="btn btn-danger" @onclick="@DeleteAnEmployee" value="Delete" />
-                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+                <input type="button" class="btn btn-secondary" @onclick="@Cancel" value="Cancel" />
             </div>
         </div>
     </div>

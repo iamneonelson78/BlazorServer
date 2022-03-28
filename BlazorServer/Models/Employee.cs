@@ -12,13 +12,17 @@ namespace BlazorServer.Models
         {
             TimeKeepingTransactions = new HashSet<TimeKeepingTransaction>();
         }
+
         [Key]
         public int EmployeeId { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        [Required]
         public string Gender { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
         public DateTime? DateHired { get; set; }
 
         public virtual ICollection<TimeKeepingTransaction> TimeKeepingTransactions { get; set; }

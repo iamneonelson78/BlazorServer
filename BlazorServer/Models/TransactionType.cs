@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlazorServer.Models
 {
@@ -12,7 +13,9 @@ namespace BlazorServer.Models
             TimeKeepingTransactions = new HashSet<TimeKeepingTransaction>();
         }
 
+        [Required]
         public int TransactionTypeId { get; set; }
+        [Required]
         public string TransactionTypeName { get; set; }
 
         public virtual ICollection<TimeKeepingTransaction> TimeKeepingTransactions { get; set; }
