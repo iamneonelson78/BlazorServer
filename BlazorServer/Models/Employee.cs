@@ -22,6 +22,7 @@ namespace BlazorServer.Models
         [Required]
         public string Gender { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         public DateTime? DateHired { get; set; }
 
         public virtual ICollection<TimeKeepingTransaction> TimeKeepingTransactions { get; set; }
