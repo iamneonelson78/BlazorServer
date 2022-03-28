@@ -10,7 +10,7 @@ namespace BlazorServer.Service
     {
         public Task<List<TimeKeepingTransaction>> GetAllTransactions();
         public Task<bool> InsertTransactionAsync(TimeKeepingTransaction transaction);
-        public Task<TimeKeepingTransaction> GetTrasactionByIdAsync(int transactionId);
+        public Task<TimeKeepingTransaction> GetTransactionByIdAsync(int Id);
         public Task<bool> UpdateTransactionAsync(TimeKeepingTransaction transaction);
         public Task<bool> DeleteTransactionAsync(TimeKeepingTransaction transaction);
     }

@@ -1,0 +1,69 @@
+﻿@page "/DeleteTransaction/{Id}"
+@using BlazorServer.Data
+@inject ITimekeepingService transService
+@inject IEmployeeService empService
+@inject ITransactionTypeService typeService
+@inject NavigationManager NavigationManager
+
+<h3>Are you sure want to delete this timekeeping transaction?</h3>
+
+<form>
+    <div class="row">
+        <div class=" col-md-8">
+            <div class="form-group">
+                <label>Transaction Id:</label>
+                <label>@transObj.TransactionTypeId</label>
+            </div>
+            <div class="form-group">
+                <label>TransactionDateTime:</label>
+                <label>@transObj.TransactionDateTime</label>
+            </div>
+            <div class="form-group">
+                <label>Transaction Type :</label>
+                <label>@typeObj.TransactionTypeName </label>
+            </div>
+            <div class="form-group">
+                <label>Employee Id:</label>
+                <label>@transObj.EmployeeId</label>
+            </div>
+            <div class="form-group">
+                <label>Employee Name:</label>
+                <label>@empObj.LastName, @empObj.FirstName</label>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-danger" @onclick="@DeleteATransaction" value="Delete" />
+                <input type="button" class="btn btn-secondary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code { [Parameter]
+    public string Id { get; set; }
+
+    TimeKeepingTransaction transObj = new TimeKeepingTransaction();
+    Employee empObj = new Employee();
+    TransactionType typeObj = new TransactionType();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        transObj = await Task.Run(() => transService.GetTransactionByIdAsync(Convert.ToInt32(Id)));
+
+        empObj = await Task.Run(() => empService.GetEmployeeByIdAsync(Convert.ToInt32(Id)));
+        typeObj = await Task.Run(() => typeService.GetTransactionTypeByIdAsync(Convert.ToInt32(Id)));
+    }
+    protected async void DeleteATransaction()
+    {
+        await transService.DeleteTransactionAsync(transObj);
+        NavigationManager.NavigateTo("TimekeepingTransactions");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("TimekeepingTransactions");
+    } }

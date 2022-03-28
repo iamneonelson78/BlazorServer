@@ -1,5 +1,7 @@
 ﻿@page  "/TimekeepingTransactions"
+@using BlazorServer.Data
 @inject ITimekeepingService transactionService
+@inject NavigationManager NavigationManager
 
 <h3>TimekeepingTransactions</h3>
 
@@ -27,23 +29,23 @@ else
         <tbody>
             @foreach (var trans in objTransaction)
             {
-            <tr>
-                <td>@trans.TimeKeepingTransactionTypeId</td>
-                <td>@trans.TransactionType.TransactionTypeName</td>
-                <td>@trans.TransactionDateTime</td>
-                <td>@trans.EmployeeId</td>
-                <td>@trans.Employee.FirstName</td>
-                <td>@trans.Employee.LastName</td>
-                <td>
-                    <a class="nav-link" href="EditEmployee/@trans.TimeKeepingTransactionTypeId">
-                        <span class="oi oi-pencil" aria-hidden="true">Edit</span>
-                    </a>
-                    <a class="nav-link" href="Delete/@trans.TimeKeepingTransactionTypeId">
-                        <span class="oi oi-trash" aria-hidden="true">Delete</span>
-                    </a>
-                </td>
-            </tr>
-           }
+                <tr>
+                    <td>@trans.TimeKeepingTransactionTypeId</td>
+                    <td>@trans.TransactionType.TransactionTypeName</td>
+                    <td>@trans.TransactionDateTime</td>
+                    <td>@trans.EmployeeId</td>
+                    <td>@trans.Employee.FirstName</td>
+                    <td>@trans.Employee.LastName</td>
+                    <td>
+                        <a class="nav-link" href="EditTransaction/@trans.TimeKeepingTransactionTypeId">
+                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                        </a>
+                        <a class="nav-link" href="DeleteTransaction/@trans.TimeKeepingTransactionTypeId">
+                            <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                        </a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }

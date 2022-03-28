@@ -9,5 +9,6 @@ namespace BlazorServer.Service
     public interface ITransactionTypeService
     {
         public Task<List<TransactionType>> GetAllTransactionTypesAsync();
+        public Task<TransactionType> GetTransactionTypeByIdAsync(int Id);
     }
 }

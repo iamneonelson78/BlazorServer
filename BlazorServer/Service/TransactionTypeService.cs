@@ -21,5 +21,13 @@ namespace BlazorServer.Service
         {
             return await _context.TransactionTypes.ToListAsync();
         }
+
+        public async Task<TransactionType> GetTransactionTypeByIdAsync(int Id)
+        {
+            TransactionType transactionType = await _context.TransactionTypes.FirstOrDefaultAsync(
+                    c => c.TransactionTypeId.Equals(Id));
+            return transactionType;
+        }
+
     }
 }
