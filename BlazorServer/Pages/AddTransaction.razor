@@ -1,0 +1,58 @@
+﻿@page "/AddTransaction"
+@*@inject ITimekeepingService transactionService
+@inject NavigationManager NavigationManager*@
+
+<h3>AddTransaction</h3>
+
+@*<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">EmployeeId</label>
+                <input form="Name" class="form-control" @bind="@objTransaction.Employee.EmployeeId" />
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">Last Name</label>
+                <input form="Name" class="form-control" @bind="@objTransaction.Employee.FirstName" />
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">Last Name</label>
+                <input form="Name" class="form-control" @bind="@objTransaction.Employee.LastName" />
+            </div>
+            <div class="form-group">
+                <label for="Gender" class="control-label"></label>
+                <select @bind="@objTransaction.Employee.Gender" class="form-control">
+                    <option value="">-Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="DateHired" class="control-label">Date Hired</label>
+                <input type="date" form="DateHired" class="form-control" @bind="@objTransaction.TransactionDateTime" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateTransaction" value="Submit" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>*@
+
+@code {
+    //TimeKeepingTransaction objTransaction = new TimeKeepingTransaction();
+    //protected async void CreateTransaction()
+    //{
+    //    await transactionService.InsertTransactionAsync(objTransaction);
+    //    NavigationManager.NavigateTo("TimekeepingTransactions");
+    //}
+    //void Cancel()
+    //{
+    //    NavigationManager.NavigateTo("TimekeepingTransactions");
+    //}
+}
