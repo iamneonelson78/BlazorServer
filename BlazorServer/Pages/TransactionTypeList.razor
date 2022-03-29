@@ -1,10 +1,12 @@
 ﻿@page "/TransactionType"
+
 @using Radzen
 @using Radzen.Blazor
 
 @inject ITransactionTypeService typeService
 
-<h3>Transaction Type List</h3>
+<h1>Transaction Types</h1>
+<hr />
 
 
 @if (typeObj is null)
@@ -24,9 +26,9 @@ else
     </RadzenGrid>
 }
 
-@code 
+@code
 {
-   List<TransactionType> typeObj;
+    List<TransactionType> typeObj;
 
     protected override async Task OnInitializedAsync()
     {

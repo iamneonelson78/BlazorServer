@@ -1,8 +1,9 @@
 ﻿@page "/Employees"
-@using BlazorServer.Data
-@inject IEmployeeService empService
+
 @using Radzen
 @using Radzen.Blazor
+
+@inject IEmployeeService empService
 @inject NavigationManager navigationManager
 
 <h1>List of Employees</h1>
@@ -11,7 +12,9 @@
 
 @if (empObj is null)
 {
-    <p><em>Fetching Data.....</em></p>
+    <div class="container-fluid">
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
 }
 else
 {

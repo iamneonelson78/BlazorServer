@@ -1,0 +1,65 @@
+﻿@page  "/TimekeepingList"
+
+@inject ITimekeepingService transactionService
+@inject NavigationManager navigationManager
+
+@using Radzen
+@using Radzen.Blazor
+
+<h1>Timekeeping Trasactions</h1>
+<a href="AddTransaction" class="btn btn-success" role="button">+ Add New Transaction</a>
+<hr />
+
+@if (objTransaction is null)
+{
+    <div class="container-fluid">
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+}
+else
+{
+    <RadzenGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="10"
+                AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                Data="@objTransaction" TItem="TimeKeepingTransaction" ColumnWidth="100px" LogicalFilterOperator="LogicalFilterOperator.Or">
+
+        <Columns>
+            <RadzenGridColumn TItem="TimeKeepingTransaction" Property="TimeKeepingTransactionTypeId" Title="Id"> </RadzenGridColumn>
+            <RadzenGridColumn TItem="TimeKeepingTransaction" Property="TransactionType.TransactionTypeName" Title="Type"> </RadzenGridColumn>
+            <RadzenGridColumn TItem="TimeKeepingTransaction" Property="TransactionDateTime" Title="Date Time"> </RadzenGridColumn>
+
+            <RadzenGridColumn TItem="TimeKeepingTransaction" Property="Employee.EmployeeId" Title="Employee Id"> </RadzenGridColumn>
+            <RadzenGridColumn TItem="TimeKeepingTransaction" Property="Employee.FirstName" Title="First Name"> </RadzenGridColumn>
+            <RadzenGridColumn TItem="TimeKeepingTransaction" Property="Employee.LastName" Title="Last Name"> </RadzenGridColumn>
+
+            <RadzenGridColumn TItem="TimeKeepingTransaction" Context="TimeKeepingTransaction" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+                <Template Context="TimeKeepingTransaction">
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="edit" Size="ButtonSize.Small" Class="m-1" Click="@(args => EditTransaction(TimeKeepingTransaction.TimeKeepingTransactionTypeId))" @onclick:stopPropagation="true">
+                    </RadzenButton>
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Class="m-1" Click="@(args => DeleteTransaction(TimeKeepingTransaction.TimeKeepingTransactionTypeId))" @onclick:stopPropagation="true">
+                    </RadzenButton>
+                </Template>
+            </RadzenGridColumn>
+
+        </Columns>
+    </RadzenGrid>
+}
+
+@code {
+    List<TimeKeepingTransaction> objTransaction;
+    [Parameter] public int TranId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        objTransaction = await Task.Run(() => transactionService.GetAllTransactions());
+    }
+
+    async Task EditTransaction(int TranId)
+    {
+        navigationManager.NavigateTo($"/EditTransaction/{TranId}");
+    }
+
+    async Task DeleteTransaction(int TranId)
+    {
+        navigationManager.NavigateTo($"/DeleteTransaction/{TranId}");
+    }
+}
