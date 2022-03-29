@@ -1,0 +1,35 @@
+﻿@page "/TransactionType"
+@using Radzen
+@using Radzen.Blazor
+
+@inject ITransactionTypeService typeService
+
+<h3>Transaction Type List</h3>
+
+
+@if (typeObj is null)
+{
+    <p><em>Fetching Data.....</em></p>
+}
+else
+{
+    <RadzenGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="10"
+                AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                Data="@typeObj" TItem="TransactionType" ColumnWidth="150px" LogicalFilterOperator="LogicalFilterOperator.Or">
+
+        <Columns>
+            <RadzenGridColumn TItem="TransactionType" Property="TransactionTypeId" Title="Id"> </RadzenGridColumn>
+            <RadzenGridColumn TItem="TransactionType" Property="TransactionTypeName" Title="Transaction Type"> </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+}
+
+@code 
+{
+   List<TransactionType> typeObj;
+
+    protected override async Task OnInitializedAsync()
+    {
+        typeObj = await Task.Run(() => typeService.GetAllTransactionTypesAsync());
+    }
+}
