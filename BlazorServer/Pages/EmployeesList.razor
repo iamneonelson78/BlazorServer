@@ -1,0 +1,66 @@
+﻿@page "/Employees"
+@using BlazorServer.Data
+@inject IEmployeeService empService
+@using Radzen
+@using Radzen.Blazor
+@inject NavigationManager navigationManager
+
+<h1>List of Employees</h1>
+<a href="AddEmployee" class="btn btn-success" role="button">+ Add New Employee</a>
+<hr />
+
+@if (empObj is null)
+{
+    <p><em>Fetching Data.....</em></p>
+}
+else
+{
+    <RadzenGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="10"
+                AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                Data="@empObj" TItem="Employee" ColumnWidth="150px" LogicalFilterOperator="LogicalFilterOperator.Or">
+
+        <Columns>
+            <RadzenGridColumn TItem="Employee" Property="EmployeeId" Title="ID"> </RadzenGridColumn>
+            <RadzenGridColumn TItem="Employee" Property="FirstName" Title="First Name"> </RadzenGridColumn>
+            <RadzenGridColumn TItem="Employee" Property="LastName" Title="Last Name"> </RadzenGridColumn>
+            <RadzenGridColumn TItem="Employee" Property="Gender" Title="Gender"> </RadzenGridColumn>
+            <RadzenGridColumn TItem="Employee" Property="DateHired" Title="Date Hired">
+                <Template Context="data">
+                    @String.Format("{0:d}", data.DateHired)
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Employee" Context="Employee" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+                <Template Context="Employee">
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="edit" Size="ButtonSize.Small" Class="m-1" Click="@(args => EditEmployee(Employee.EmployeeId))" @onclick:stopPropagation="true">
+                    </RadzenButton>
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Class="m-1" Click="@(args => DeleteEmployee(Employee.EmployeeId))" @onclick:stopPropagation="true">
+                    </RadzenButton>
+                </Template>
+            </RadzenGridColumn>
+
+        </Columns>
+    </RadzenGrid>
+}
+
+@code {
+    IEnumerable<Employee> empObj;
+
+    [Parameter] public int EmpId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        empObj = await Task.Run(() => empService.GetAllEmployeesAsync());
+    }
+
+    async Task EditEmployee(int EmpId)
+    {
+        navigationManager.NavigateTo($"/EditEmployee/{EmpId}");
+    }
+
+    async Task DeleteEmployee(int EmpId)
+    {
+        navigationManager.NavigateTo($"/DeleteEmployee/{EmpId}");
+    }
+
+}
+

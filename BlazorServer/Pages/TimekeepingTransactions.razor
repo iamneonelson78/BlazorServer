@@ -22,8 +22,9 @@ else
                 <th>Transaction Type</th>
                 <th>Transaction DateTime</th>
                 <th>Employee Id</th>
-                <th>Employee Name</th>
-                <th>&nbsp;</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -34,7 +35,8 @@ else
                 <td>@trans.TransactionType.TransactionTypeName</td>
                 <td>@trans.TransactionDateTime</td>
                 <td>@trans.EmployeeId</td>
-                <td>@trans.Employee.LastName, @trans.Employee.FirstName</td>
+                <td>@trans.Employee.FirstName</td>
+                <td>@trans.Employee.LastName</td>
                 <td>
                     <a href="EditTransaction/@trans.TimeKeepingTransactionTypeId" class="btn btn-outline-primary" role="button">
                         Edit
