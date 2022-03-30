@@ -1,6 +1,6 @@
 ﻿@page "/DeleteEmployee/{Id}"
-@using BlazorServer.Data
 @inject IEmployeeService employeeService
+@inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
 
 
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label>Date Hired:</label>
-                <label>@obj.DateHired</label>
+                <label> @String.Format("{0:d}", obj.DateHired)</label>
             </div>
         </div>
 
@@ -53,6 +53,7 @@
     protected async void DeleteAnEmployee()
     {
         await employeeService.DeleteEmployeeAsync(obj);
+        await JsRuntime.InvokeVoidAsync("alert", "Deleted Successfully!");
         NavigationManager.NavigateTo("Employees");
     }
     void Cancel()

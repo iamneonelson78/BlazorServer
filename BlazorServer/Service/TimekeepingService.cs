@@ -32,8 +32,11 @@ namespace BlazorServer.Service
         }
         public async Task<TimeKeepingTransaction> GetTransactionByIdAsync(int Id)
         {
-            TimeKeepingTransaction transaction = await _context.TimeKeepingTransactions.FirstOrDefaultAsync(
-                    c => c.TimeKeepingTransactionTypeId.Equals(Id));
+            TimeKeepingTransaction transaction = await _context.TimeKeepingTransactions
+                .Include(x => x.Employee)
+                .Include(x => x.TransactionType)
+                .FirstOrDefaultAsync(c => c.TimeKeepingTransactionTypeId.Equals(Id));
+
             return transaction;
         }
         public async Task<bool> UpdateTransactionAsync(TimeKeepingTransaction transaction)

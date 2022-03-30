@@ -2,7 +2,10 @@
 @inject ITimekeepingService transService
 @inject IEmployeeService empService
 @inject ITransactionTypeService typeService
+@inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
+
+
 
 <h3>Edit Timekeeping Transaction</h3>
 <hr />
@@ -13,7 +16,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
-                <label for="Gender" class="control-label"></label>
+                <label for="EmployeeId" class="control-label"></label>
                 <select class="form-control" @bind="@transObj.EmployeeId">
                     <option value="">-- Select Employee --</option>
                     @if ((empObj != null))
@@ -25,7 +28,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="Gender" class="control-label"></label>
+                <label for="TransactionTypeId" class="control-label"></label>
                 <select class="form-control" @bind="@transObj.TransactionTypeId">
                     <option value="">-- Select Transaction --</option>
                     @if ((typeObj != null))
@@ -80,11 +83,12 @@
     protected async void UpdateTransaction()
     {
         await transService.UpdateTransactionAsync(transObj);
-        NavigationManager.NavigateTo("TimekeepingTransactions");
+        await JsRuntime.InvokeVoidAsync("alert", "Updated Successfully!");
+        NavigationManager.NavigateTo("TimekeepingList");
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("TimekeepingTransactions");
+        NavigationManager.NavigateTo("TimekeepingList");
     }
 }
 

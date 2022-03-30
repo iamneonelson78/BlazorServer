@@ -1,70 +1,72 @@
-﻿@page "/DeleteTransaction/{Id}"
-@using BlazorServer.Data
-@inject ITimekeepingService transService
-@inject IEmployeeService empService
-@inject ITransactionTypeService typeService
+﻿@page "/DeleteTransaction/{TranId}"
+@inject ITimekeepingService timeService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
 
-<h3>Are you sure want to delete this Timekeeping ransaction?</h3>
-<hr/>
+<h3>Are you sure want to delete this Timekeeping transaction?</h3>
+<hr />
 
-<form>
-    <div class="row">
-        <div class=" col-md-8">
-            <div class="form-group">
-                <label>Transaction Id:</label>
-                <label>@transObj.TransactionTypeId</label>
+@if (transObj != null)
+{
+    <form>
+        <div class="row">
+            <div class=" col-md-8">
+                <div class="form-group">
+                    <label>Transaction Id:</label>
+                    <label>@transObj.TransactionTypeId</label>
+                </div>
+                <div class="form-group">
+                    <label>TransactionDateTime:</label>
+                    <label>@transObj.TransactionDateTime</label>
+                </div>
+                <div class="form-group">
+                    <label>Transaction Type :</label>
+                    <label>@transObj.TransactionType.TransactionTypeName</label>
+                </div>
+                <div class="form-group">
+                    <label>Employee Id:</label>
+                    <label>@transObj.EmployeeId</label>
+                </div>
+                <div class="form-group">
+                    <label>Employee Name:</label>
+                    <label>@transObj.Employee.LastName, @transObj.Employee.FirstName</label>
+                </div>
             </div>
-            <div class="form-group">
-                <label>TransactionDateTime:</label>
-                <label>@transObj.TransactionDateTime</label>
-            </div>
-            <div class="form-group">
-                <label>Transaction Type :</label>
-                <label>@typeObj.TransactionTypeName </label>
-            </div>
-            <div class="form-group">
-                <label>Employee Id:</label>
-                <label>@transObj.EmployeeId</label>
-            </div>
-            <div class="form-group">
-                <label>Employee Name:</label>
-                <label>@empObj.LastName, @empObj.FirstName</label>
-            </div>
+
         </div>
 
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <input type="button" class="btn btn-danger" @onclick="@DeleteATransaction" value="Delete" />
-                <input type="button" class="btn btn-secondary" @onclick="@Cancel" value="Cancel" />
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="button" class="btn btn-danger" @onclick="@DeleteATransaction" value="Delete" />
+                    <input type="button" class="btn btn-secondary" @onclick="@Cancel" value="Cancel" />
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+}
 
-@code { [Parameter]
-    public string Id { get; set; }
+@code
+{
+    [Parameter]
+    public string TranId { get; set; }
 
-    TimeKeepingTransaction transObj = new TimeKeepingTransaction();
-    Employee empObj = new Employee();
-    TransactionType typeObj = new TransactionType();
+    TimeKeepingTransaction transObj;
 
 
     protected override async Task OnInitializedAsync()
     {
-        transObj = await Task.Run(() => transService.GetTransactionByIdAsync(Convert.ToInt32(Id)));
+        transObj = await Task.Run(() => timeService.GetTransactionByIdAsync(Convert.ToInt32(TranId)));
 
-        empObj = await Task.Run(() => empService.GetEmployeeByIdAsync(Convert.ToInt32(Id)));
-        typeObj = await Task.Run(() => typeService.GetTransactionTypeByIdAsync(Convert.ToInt32(Id)));
     }
     protected async void DeleteATransaction()
     {
-        await transService.DeleteTransactionAsync(transObj);
-        NavigationManager.NavigateTo("TimekeepingTransactions");
+        await timeService.DeleteTransactionAsync(transObj);
+        await JsRuntime.InvokeVoidAsync("alert", "Deleted Successfully!");
+        NavigationManager.NavigateTo("TimekeepingList");
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("TimekeepingTransactions");
-    } }
+        NavigationManager.NavigateTo("TimekeepingList");
+    }
+}

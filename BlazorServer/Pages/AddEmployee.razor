@@ -1,7 +1,8 @@
 ﻿@page "/AddEmployee"
-@using BlazorServer.Data
 @inject IEmployeeService employeeService
+@inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
+
 
 <h3>Add New Employee</h3>
 <hr />
@@ -44,17 +45,18 @@
 
 </EditForm>
 
-@code 
-{ 
+@code
+{
     Employee empObj = new Employee();
     protected async void CreateEmployee()
     {
         await employeeService.InsertEmployeeAsync(empObj);
+        await JsRuntime.InvokeVoidAsync("alert", "Created Successfully!");
         NavigationManager.NavigateTo("Employees");
     }
     void Cancel()
     {
         NavigationManager.NavigateTo("Employees");
     }
-    
+
 }

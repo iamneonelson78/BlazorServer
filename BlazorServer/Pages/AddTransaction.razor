@@ -1,7 +1,8 @@
 ﻿@page "/AddTransaction"
-@inject ITimekeepingService transactionService
 @inject IEmployeeService empService
+@inject ITimekeepingService transactionService
 @inject ITransactionTypeService typeService
+@inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
 
 <h3>Create New Timekeeping Transaction</h3>
@@ -74,10 +75,11 @@
     protected async void CreateTransaction()
     {
         await transactionService.InsertTransactionAsync(transObj);
-        NavigationManager.NavigateTo("TimekeepingTransactions");
+        await JsRuntime.InvokeVoidAsync("alert", "Created Successfully!");
+        NavigationManager.NavigateTo("TimekeepingList");
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("TimekeepingTransactions");
+        NavigationManager.NavigateTo("TimekeepingList");
     }
 }
