@@ -30,22 +30,22 @@ else
         <tbody>
             @foreach (var trans in objTransaction)
             {
-            <tr>
-                <td>@trans.TimeKeepingTransactionTypeId</td>
-                <td>@trans.TransactionType.TransactionTypeName</td>
-                <td>@trans.TransactionDateTime</td>
-                <td>@trans.EmployeeId</td>
-                <td>@trans.Employee.FirstName</td>
-                <td>@trans.Employee.LastName</td>
-                <td>
-                    <a href="EditTransaction/@trans.TimeKeepingTransactionTypeId" class="btn btn-outline-primary" role="button">
-                        Edit
-                    </a>
-                    <a href="DeleteTransaction/@trans.TimeKeepingTransactionTypeId" class="btn btn-outline-danger" role="button">
-                        Delete
-                    </a>
-                </td>
-            </tr>
+                <tr>
+                    <td>@trans.TimeKeepingTransactionTypeId</td>
+                    <td>@trans.TransactionType.TransactionTypeName</td>
+                    <td>@trans.TransactionDateTime</td>
+                    <td>@trans.EmployeeId</td>
+                    <td>@trans.Employee.FirstName</td>
+                    <td>@trans.Employee.LastName</td>
+                    <td>
+                        <a href="EditTransaction/@trans.TimeKeepingTransactionTypeId" class="btn btn-outline-primary" role="button">
+                            Edit
+                        </a>
+                        <a href="DeleteTransaction/@trans.TimeKeepingTransactionTypeId" class="btn btn-outline-danger" role="button">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

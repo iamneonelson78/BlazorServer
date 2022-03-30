@@ -11,29 +11,30 @@
 
 @if (typeObj is null)
 {
-    <div class="container-fluid">
-        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-    </div>
+	<div class="container-fluid align-items-xl-center">
+		<p><em>Fetching Data....Please wait!</em></p>
+		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	</div>
 }
 else
 {
-    <RadzenGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="10"
-                AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
-                Data="@typeObj" TItem="TransactionType" ColumnWidth="150px" LogicalFilterOperator="LogicalFilterOperator.Or">
+	<RadzenGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="10"
+				AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+				Data="@typeObj" TItem="TransactionType" ColumnWidth="150px" LogicalFilterOperator="LogicalFilterOperator.Or">
 
-        <Columns>
-            <RadzenGridColumn TItem="TransactionType" Property="TransactionTypeId" Title="Id"> </RadzenGridColumn>
-            <RadzenGridColumn TItem="TransactionType" Property="TransactionTypeName" Title="Transaction Type"> </RadzenGridColumn>
-        </Columns>
-    </RadzenGrid>
+		<Columns>
+			<RadzenGridColumn TItem="TransactionType" Property="TransactionTypeId" Title="Id"> </RadzenGridColumn>
+			<RadzenGridColumn TItem="TransactionType" Property="TransactionTypeName" Title="Transaction Type"> </RadzenGridColumn>
+		</Columns>
+	</RadzenGrid>
 }
 
 @code
 {
-    List<TransactionType> typeObj;
+	List<TransactionType> typeObj;
 
-    protected override async Task OnInitializedAsync()
-    {
-        typeObj = await Task.Run(() => typeService.GetAllTransactionTypesAsync());
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		typeObj = await Task.Run(() => typeService.GetAllTransactionTypesAsync());
+	}
 }

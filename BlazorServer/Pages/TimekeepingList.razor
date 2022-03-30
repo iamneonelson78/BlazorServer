@@ -12,7 +12,8 @@
 
 @if (objTransaction is null)
 {
-    <div class="container-fluid">
+    <div class="container-fluid align-items-xl-center">
+        <p><em>Fetching Data....Please wait!</em></p>
         <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>
 }
@@ -32,13 +33,13 @@ else
             <RadzenGridColumn TItem="TimeKeepingTransaction" Property="Employee.LastName" Title="Last Name"> </RadzenGridColumn>
 
             @*<RadzenGridColumn TItem="TimeKeepingTransaction" Context="TimeKeepingTransaction" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
-                <Template Context="TimeKeepingTransaction">
-                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="edit" Size="ButtonSize.Small" Class="m-1" Click="@(args => EditTransaction(TimeKeepingTransaction.TimeKeepingTransactionTypeId))" @onclick:stopPropagation="true">
-                    </RadzenButton>
-                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Class="m-1" Click="@(args => DeleteTransaction(TimeKeepingTransaction.TimeKeepingTransactionTypeId))" @onclick:stopPropagation="true">
-                    </RadzenButton>
-                </Template>
-            </RadzenGridColumn>*@
+                    <Template Context="TimeKeepingTransaction">
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="edit" Size="ButtonSize.Small" Class="m-1" Click="@(args => EditTransaction(TimeKeepingTransaction.TimeKeepingTransactionTypeId))" @onclick:stopPropagation="true">
+                        </RadzenButton>
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Class="m-1" Click="@(args => DeleteTransaction(TimeKeepingTransaction.TimeKeepingTransactionTypeId))" @onclick:stopPropagation="true">
+                        </RadzenButton>
+                    </Template>
+                </RadzenGridColumn>*@
 
         </Columns>
     </RadzenGrid>
