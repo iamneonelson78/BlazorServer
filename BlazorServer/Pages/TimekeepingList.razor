@@ -31,14 +31,14 @@ else
             <RadzenGridColumn TItem="TimeKeepingTransaction" Property="Employee.FirstName" Title="First Name"> </RadzenGridColumn>
             <RadzenGridColumn TItem="TimeKeepingTransaction" Property="Employee.LastName" Title="Last Name"> </RadzenGridColumn>
 
-            <RadzenGridColumn TItem="TimeKeepingTransaction" Context="TimeKeepingTransaction" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+            @*<RadzenGridColumn TItem="TimeKeepingTransaction" Context="TimeKeepingTransaction" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
                 <Template Context="TimeKeepingTransaction">
                     <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="edit" Size="ButtonSize.Small" Class="m-1" Click="@(args => EditTransaction(TimeKeepingTransaction.TimeKeepingTransactionTypeId))" @onclick:stopPropagation="true">
                     </RadzenButton>
                     <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Class="m-1" Click="@(args => DeleteTransaction(TimeKeepingTransaction.TimeKeepingTransactionTypeId))" @onclick:stopPropagation="true">
                     </RadzenButton>
                 </Template>
-            </RadzenGridColumn>
+            </RadzenGridColumn>*@
 
         </Columns>
     </RadzenGrid>
@@ -46,7 +46,7 @@ else
 
 @code {
     List<TimeKeepingTransaction> objTransaction;
-    
+
     [Parameter] public int TranId { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -54,13 +54,13 @@ else
         objTransaction = await Task.Run(() => transactionService.GetAllTransactions());
     }
 
-    async Task EditTransaction(int TranId)
-    {
-        navigationManager.NavigateTo($"/EditTransaction/{TranId}");
-    }
+    //async Task EditTransaction(int TranId)
+    //{
+    //    navigationManager.NavigateTo($"/EditTransaction/{TranId}");
+    //}
 
-    async Task DeleteTransaction(int TranId)
-    {
-        navigationManager.NavigateTo($"/DeleteTransaction/{TranId}");
-    }
+    //async Task DeleteTransaction(int TranId)
+    //{
+    //    navigationManager.NavigateTo($"/DeleteTransaction/{TranId}");
+    //}
 }
