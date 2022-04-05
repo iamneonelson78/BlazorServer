@@ -28,7 +28,7 @@
                     @if ((empObj != null))
                         @foreach (var emp in empObj)
                         {
-                            <option value="@emp.EmployeeId">@emp.FirstName, @emp.LastName</option>
+                            <option value="@emp.EmployeeId">@emp.FirstName @emp.LastName</option>
                         }
                     }
                 </select>
